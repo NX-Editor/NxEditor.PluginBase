@@ -8,7 +8,7 @@ namespace NxEditor.PluginBase.Services;
 public interface IFormatService
 {
     /// <summary>
-    /// Public dictionary of the availible <see cref="IActionService"/> handles availible for this <see cref="IFormatService"/>
+    /// Public dictionary of the available <see cref="IActionService"/> handles available for this <see cref="IFormatService"/>
     /// </summary>
     public Dictionary<string, IActionService> Actions { get; }
 

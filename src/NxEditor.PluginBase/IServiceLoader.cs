@@ -6,11 +6,11 @@ namespace NxEditor.PluginBase;
 public interface IServiceLoader
 {
     Task<IFormatService> RequestService(IEditorFile handle);
-    T? GetFirstService<T>(IEditorFile handle) where T : class, IFormatService;
-    IFormatService? GetFirstService(IEditorFile handle);
+    T? GetFirstService<T>(IEditorFile handle) where T : class, IFormatServiceProvider;
+    IFormatServiceProvider? GetFirstService(IEditorFile handle);
     IServiceModule? GetService(string name);
-    IEnumerable<IFormatService> GetServices(IEditorFile handle);
     T? GetService<T>(string name) where T : class, IServiceModule;
+    IEnumerable<IFormatServiceProvider> GetServices(IEditorFile handle);
 
     IServiceLoader Register(ITransformer service);
     IServiceLoader Register(string serviceId, IServiceModule service);

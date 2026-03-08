@@ -59,17 +59,17 @@ public class ServiceLoader : IServiceLoader
         }
     }
 
-    public T? GetFirstService<T>(IEditorFile handle) where T : class, IFormatService
+    public T? GetFirstService<T>(IEditorFile handle) where T : class, IFormatServiceProvider
     {
         return GetServices(handle).FirstOrDefault(x => x is T) as T;
     }
 
-    public IFormatService? GetFirstService(IEditorFile handle)
+    public IFormatServiceProvider? GetFirstService(IEditorFile handle)
     {
         return GetServices(handle).FirstOrDefault();
     }
 
-    public IEnumerable<IFormatService> GetServices(IEditorFile handle)
+    public IEnumerable<IFormatServiceProvider> GetServices(IEditorFile handle)
     {
         foreach (var processor in _processors) {
             if (processor.IsValid(handle)) {
@@ -80,7 +80,7 @@ public class ServiceLoader : IServiceLoader
 
         return _services
             .Where(x => x.Value.IsValid(handle))
-            .Select(x => (x.Value as IFormatServiceProvider)?.GetService(handle)!)
+            .Select(x => (x.Value as IFormatServiceProvider)!)
             .Where(x => x is not null);
     }
 

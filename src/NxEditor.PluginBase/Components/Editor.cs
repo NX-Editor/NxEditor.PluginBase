@@ -53,12 +53,13 @@ public abstract class Editor<TView> : Document, IEditor, IEditorInterface, IForm
                 Handle.Write(ref data);
             }
 
-            StatusModal.Set($"Saved {Title} Sucessfully", "fa-regular fa-floppy-disk", false, 2);
+            StatusModal.Set($"Saved {Title} Successfully", "fa-regular fa-floppy-disk", false, 2);
         }
         catch (Exception ex) {
             StatusModal.Set($"Error Saving: {ex.Message}", "fa-regular fa-circle-xmark", isWorkingStatus: false, temporaryStatusTime: 3);
             Trace.WriteLine(ex);
         }
+
     }
 
     public virtual Task Undo() => Task.CompletedTask;
@@ -106,8 +107,6 @@ public abstract class Editor<TView> : Document, IEditor, IEditorInterface, IForm
 
     public override bool OnClose()
     {
-        Cleanup();
-
         if (HasChanged) {
             DialogResult result = DialogBox.ShowAsync("Warning",
                 "You have unsaved changes, are you sure you would like to exit?",
@@ -117,6 +116,11 @@ public abstract class Editor<TView> : Document, IEditor, IEditorInterface, IForm
                 return false;
             }
         }
+
+        Cleanup();
+
+        // Dereference View DataContext
+        // View.DataContext = null;
 
         return base.OnClose();
     }
