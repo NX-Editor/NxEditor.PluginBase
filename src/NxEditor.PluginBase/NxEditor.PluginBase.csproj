@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ConfigFactory.Avalonia" Version="0.5.0" />
+    <PackageReference Include="ConfigFactory.Avalonia" Version="0.6.0" />
   </ItemGroup>
 
 </Project>
